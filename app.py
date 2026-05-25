@@ -10,7 +10,15 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.colors import HexColor
 
-# Initialize Gemini Client
+# Initialize Gemini Client securely using Streamlit Secrets
+import os
+
+# Fetch from Streamlit secrets and explicitly set it in the environment
+if "GEMINI_API_KEY" in st.secrets:
+    os.environ["GEMINI_API_KEY"] = st.secrets["GEMINI_API_KEY"]
+else:
+    st.error("Missing GEMINI_API_KEY in Streamlit Secrets!")
+
 client = genai.Client()
 
 # Core Page Layout Configuration
